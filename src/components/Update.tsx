@@ -9,13 +9,15 @@ type UpdateTypes = {
   storeSelectedItem: TransactionType | null;
   setUpdateDeleteTab: (updateDeleteTab: boolean) => void;
 };
-
 function isIncome(data: unknown): data is IncomeType {
   return (
     typeof data === "object" &&
     data !== null &&
     "income" in data &&
-    typeof (data as any).income?.source !== "undefined"
+    typeof (data as { income: unknown }).income === "object" &&
+    (data as { income: IncomeType }).income?.source !== undefined &&
+    (data as { income: IncomeType }).income?.amount !== undefined &&
+    (data as { income: IncomeType }).income?.date !== undefined
   );
 }
 
@@ -24,7 +26,8 @@ function isExpense(data: unknown): data is ExpenseType {
     typeof data === "object" &&
     data !== null &&
     "expense" in data &&
-    typeof (data as any).expense?.category !== "undefined"
+    typeof (data as { expense: unknown }).expense === "object" &&
+    (data as { expense: ExpenseType }).expense?.category !== undefined
   );
 }
 
@@ -57,7 +60,13 @@ export default function Update({
     return "";
   };
 
-  const [sendValues, setSendValues] = useState({
+  const [sendValues, setSendValues] = useState<{
+    sourceCat: string;
+    amount: number;
+    date: Date;
+    _id: string;
+    type: string;
+  }>({
     sourceCat: "",
     amount: 0,
     date: new Date(),
@@ -67,31 +76,33 @@ export default function Update({
 
   const handleClick = async () => {
     await dispatch(updateTransaction(sendValues));
-    await dispatch(fetchUserData()).then(()=>{
-      toast.success('Updated!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-        })
-    }).catch(()=>{
-      toast.error('Error. Could not be updated...', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
+    await dispatch(fetchUserData())
+      .then(() => {
+        toast.success('Updated!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
         });
-    })
+      })
+      .catch(() => {
+        toast.error('Error. Could not be updated...', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
   };
 
   return (
@@ -109,12 +120,14 @@ export default function Update({
       <div className="bg-white w-[50%] h-[50%]">
         <h1>Update</h1>
 
-        <form className="w-full h-full flex flex-col justify-center items-center gap-5 ">
-          <div className="w-full h-[85%] flex flex-col justify-center items-center ">
+        <form className="w-full h-full flex flex-col justify-center items-center gap-5">
+          <div className="w-full h-[85%] flex flex-col justify-center items-center">
             <div className="flex flex-col w-[90%] h-[30%] justify-center items-start">
               <label htmlFor="source">{isIncome(item.income) ? "Source" : "Category"}</label>
               <input
-                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSendValues({ ...sendValues, sourceCat: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSendValues({ ...sendValues, sourceCat: e.target.value })
+                }
                 className="w-full outline-1 outline-gray-300 selection:outline-blue-500 selection:outline-1 p-3"
                 type="text"
                 name="source"
@@ -125,7 +138,9 @@ export default function Update({
             <div className="flex flex-col w-[90%] h-[30%] justify-center items-start">
               <label htmlFor="amount">Amount</label>
               <input
-                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSendValues({ ...sendValues, amount: Number(e.target.value) })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSendValues({ ...sendValues, amount: Number(e.target.value) })
+                }
                 className="w-full outline-1 outline-gray-300 selection:outline-blue-500 selection:outline-1 p-3"
                 type="number"
                 name="amount"
@@ -136,7 +151,9 @@ export default function Update({
             <div className="flex flex-col w-[90%] h-[30%] justify-center items-start">
               <label htmlFor="date">Date</label>
               <input
-                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSendValues({ ...sendValues, date: new Date(e.target.value) })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSendValues({ ...sendValues, date: new Date(e.target.value) })
+                }
                 className="w-full outline-1 outline-gray-300 selection:outline-blue-500 selection:outline-1 p-3"
                 type="date"
                 name="date"
@@ -144,7 +161,7 @@ export default function Update({
                   isIncome(item)
                     ? new Date(item.income?.date ?? "").toISOString().split("T")[0]
                     : isExpense(item)
-                    ? new Date(item.expense?.date ?? "").toISOString().split("T")[0] 
+                    ? new Date(item.expense?.date ?? "").toISOString().split("T")[0]
                     : ""
                 }
               />
