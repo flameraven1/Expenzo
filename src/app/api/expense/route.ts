@@ -10,8 +10,6 @@ export async function POST (req : NextRequest) {
         await ConnectDB();
     
         const userInputs = await req.json();
-
-        console.log("Recieved ------- " , userInputs)
     
         const session = await auth();
 
@@ -34,8 +32,6 @@ export async function POST (req : NextRequest) {
 
         await newExpense.save();
 
-        console.log("Expense--------" , newExpense)
-
         const newTransaction = new Transaction({
             expense: newExpense._id,
             userID : session.user.id,
@@ -43,8 +39,6 @@ export async function POST (req : NextRequest) {
           })
 
         await newTransaction.save()
-
-        console.log("Transaction--------" , newTransaction)
 
 
         const updatingExpense = await Expense.findByIdAndUpdate(newExpense._id , {
@@ -54,8 +48,6 @@ export async function POST (req : NextRequest) {
                 } ,
             {new : true}
         )
-
-        console.log(updatingExpense)
 
         return NextResponse.json({message : "Added!" , updatingExpense, transaction : newTransaction})
     } catch (error) {

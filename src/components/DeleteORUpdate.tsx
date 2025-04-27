@@ -5,7 +5,7 @@ import Delete from "./Delete";
 
 type TypeForQuestionTab = {
   updateDeleteTab : boolean,
-  storeSelectedItem : TransactionType | {},
+  storeSelectedItem : TransactionType | object,
   setUpdateDeleteTab : (updateDeleteTab : boolean)=>void
 }
 

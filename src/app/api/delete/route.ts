@@ -9,8 +9,6 @@ export async function DELETE(req : NextRequest) {
         await ConnectDB();
         const selectedItem = await req.json()
 
-        console.log("Recieved ID---------" , selectedItem)
-
         if(selectedItem.type === "Income"){
             await Transaction.findByIdAndDelete(selectedItem._id)
             await Income.findByIdAndDelete(selectedItem.income._id)

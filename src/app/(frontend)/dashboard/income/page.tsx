@@ -10,7 +10,7 @@ import DeleteORUpdateIncome from "@/components/income/DeleteORUpdateIncome";
 
 export default function Income() {
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
-  const [storeSelectedItem, setStoreSelectedItem] = useState<IncomeType | {}>({});
+  const [storeSelectedItem, setStoreSelectedItem] = useState<IncomeType | object>({});
   const dispatch = useAppDispatch();
 
   const { totalIncome } = userIncomeExpenseContext();

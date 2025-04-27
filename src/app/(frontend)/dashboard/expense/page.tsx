@@ -10,7 +10,7 @@ import DeleteORUpdateExpense from "@/components/expense/DeleteORUpdateExpense";
 
 export default function Expense() {
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
-  const [storeSelectedItem, setStoreSelectedItem] = useState<ExpenseType | {}>({});
+  const [storeSelectedItem, setStoreSelectedItem] = useState<ExpenseType | object>({});
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
 
   const dispatch = useAppDispatch();

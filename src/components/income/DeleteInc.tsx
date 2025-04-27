@@ -4,14 +4,12 @@ import { Bounce, toast } from "react-toastify"
 
 type DeleteTypes = {
     setOpenDelete : (openUpdate : boolean)=>void,
-    storeSelectedItem : IncomeType | {},
+    storeSelectedItem : IncomeType | object,
     setUpdateDeleteTab : (updateDeleteTab : boolean)=>void
 }
 
 
 export default function DeleteInc({setUpdateDeleteTab , setOpenDelete , storeSelectedItem} : DeleteTypes) {
-
-    console.log("what is the actual data recieved-------",storeSelectedItem)
     const dispatch = useAppDispatch();
 
     const handleDeleteDispatch = async () =>{

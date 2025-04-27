@@ -4,7 +4,7 @@ import DeleteExp from "./DeleteExp"
 import UpdateExp from "./UpdateExp";
 type TypeForQuestionTab = {
   updateDeleteTab : boolean,
-  storeSelectedItem : IncomeType | {},
+  storeSelectedItem : IncomeType | object,
   setUpdateDeleteTab : (updateDeleteTab : boolean)=>void
 }
 

@@ -1,5 +1,5 @@
 import { ExpenseType, IncomeType } from '@/lib/features/userSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/hook';
+import { useAppSelector } from '@/lib/hook';
 import { RootState } from '@/lib/store';
 import React, {ReactNode, useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'

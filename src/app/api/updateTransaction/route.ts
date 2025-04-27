@@ -49,8 +49,6 @@ export async function PATCH (req : NextRequest) {
 
             const transaction = await Transaction.findOne({_id : updatedValues._id})
 
-            const eg = await Expense.findById(transaction.expense)
-
             const findExpense = await Expense.findByIdAndUpdate(transaction.expense ,
                 
             {

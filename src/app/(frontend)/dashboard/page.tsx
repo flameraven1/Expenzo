@@ -13,12 +13,13 @@ import { userIncomeExpenseContext } from "@/components/IncomeExpenseContext";
 import IncomeExpenseChart from "@/components/IncomeExpenseChart";
 import DeleteORUpdate from "@/components/DeleteORUpdate";
 
-function isIncome(data: any): data is IncomeType {
-  return data && typeof data === "object" && "source" in data;
+// Type Guards
+function isIncome(data: IncomeType | ExpenseType | undefined): data is IncomeType {
+  return data !== undefined && 'source' in data;
 }
 
-function isExpense(data: any): data is ExpenseType {
-  return data && typeof data === "object" && "category" in data;
+function isExpense(data: IncomeType | ExpenseType | undefined): data is ExpenseType {
+  return data !== undefined && 'category' in data;
 }
 
 export default function Dashboard() {
@@ -64,22 +65,20 @@ export default function Dashboard() {
         />
       )}
 
-<div className="flex flex-col sm:flex-row gap-4 mb-6 items-center justify-center">
-  <div className="w-[80%] sm:w-[45%] bg-green-100 p-4 rounded-xl shadow-md flex items-center justify-center">
-    <p className="text-lg font-semibold text-green-900">
-      Income: PKR {totalIncome}
-    </p>
-  </div>
-  <div className="w-[80%] sm:w-[45%] bg-red-100 p-4 rounded-xl shadow-md flex items-center justify-center">
-    <p className="text-lg font-semibold text-red-900">
-      Expense: PKR {totalExpense}
-    </p>
-  </div>
-</div>
-
+      <div className="flex flex-col sm:flex-row gap-4 mb-6 items-center justify-center">
+        <div className="w-[80%] sm:w-[45%] bg-green-100 p-4 rounded-xl shadow-md flex items-center justify-center">
+          <p className="text-lg font-semibold text-green-900">
+            Income: PKR {totalIncome}
+          </p>
+        </div>
+        <div className="w-[80%] sm:w-[45%] bg-red-100 p-4 rounded-xl shadow-md flex items-center justify-center">
+          <p className="text-lg font-semibold text-red-900">
+            Expense: PKR {totalExpense}
+          </p>
+        </div>
+      </div>
 
       <div className="space-y-8">
-        
         <div className="w-full bg-white rounded-2xl shadow-md p-6">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <h1 className="text-2xl font-semibold text-gray-800">Overview</h1>
@@ -121,17 +120,23 @@ export default function Dashboard() {
 
                   let sourceOrCategory = "N/A";
                   let formattedDate = "N/A";
+                  let amount = "N/A";
 
+                  // Check if data is IncomeType
                   if (isIncome(data)) {
                     sourceOrCategory = data.source;
                     formattedDate = data?.date
                       ? new Date(data.date).toLocaleDateString()
                       : "N/A";
-                  } else if (isExpense(data)) {
+                    amount = String(data?.amount ?? "N/A");  // Make sure amount is a string
+                  } 
+                  // Check if data is ExpenseType
+                  else if (isExpense(data)) {
                     sourceOrCategory = data.category;
                     formattedDate = data?.date
                       ? new Date(data.date).toLocaleDateString()
                       : "N/A";
+                    amount = String(data?.amount ?? "N/A");  // Make sure amount is a string
                   }
 
                   return (
@@ -144,9 +149,7 @@ export default function Dashboard() {
                       <td className="p-3 border-b">{formattedDate}</td>
                       <td className="p-3 border-b">{item.type}</td>
                       <td className="p-3 border-b">{sourceOrCategory}</td>
-                      <td className="p-3 border-b">
-                        Rs {data?.amount ?? "N/A"}
-                      </td>
+                      <td className="p-3 border-b">Rs {amount}</td>
                     </tr>
                   );
                 })}
