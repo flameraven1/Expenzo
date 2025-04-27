@@ -45,7 +45,7 @@ const addExpenseTransactions = createAsyncThunk("user/addExpenseTransactions" , 
       }
 })
 
-const deleteTransaction = createAsyncThunk("user/deleteTransaction" , async (storeSelectedItem : TransactionType | object)=>{
+const deleteTransaction = createAsyncThunk("user/deleteTransaction" , async (storeSelectedItem : TransactionType | null)=>{
     try {
         const response = await fetch("/api/delete" , {
             method : "DELETE",

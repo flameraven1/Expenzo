@@ -18,13 +18,10 @@ export default function Expense() {
   const fetchDataForExpense = async () => {
     await dispatch(fetchUserData());
   };
-
+  
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(fetchUserData());
-    };
-    fetchData();
-  }, []);  
+    fetchDataForExpense();
+  }, [dispatch]);
 
   const { totalExpense } = useIncomeExpenseContext();
   const { entireUserData } = useAppSelector((state: RootState) => state.user);

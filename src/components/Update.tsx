@@ -6,17 +6,28 @@ import { Bounce, toast } from "react-toastify";
 type UpdateTypes = {
   openUpdate: boolean;
   setOpenUpdate: (openUpdate: boolean) => void;
-  storeSelectedItem: TransactionType | object;
+  storeSelectedItem: TransactionType | null;
   setUpdateDeleteTab: (updateDeleteTab: boolean) => void;
 };
 
-function isIncome(data: any): data is IncomeType {
-  return data && typeof data === "object" && "source" in data;
+function isIncome(data: unknown): data is IncomeType {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    "income" in data &&
+    typeof (data as any).income?.source !== "undefined"
+  );
 }
 
-function isExpense(data: any): data is ExpenseType {
-  return data && typeof data === "object" && "category" in data;
+function isExpense(data: unknown): data is ExpenseType {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    "expense" in data &&
+    typeof (data as any).expense?.category !== "undefined"
+  );
 }
+
 
 export default function Update({
   setOpenUpdate,

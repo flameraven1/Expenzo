@@ -30,7 +30,7 @@ export default function Dashboard() {
   const dispatch = useAppDispatch();
   const { totalExpense, totalIncome } = useIncomeExpenseContext();
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
-  const [storeSelectedItem, setStoreSelectedItem] = useState<TransactionType | {}>({});
+  const [storeSelectedItem, setStoreSelectedItem] = useState<TransactionType | null>(null);
 
   useEffect(() => {
     dispatch(fetchUserData());
