@@ -9,7 +9,7 @@ import {
   TransactionType,
   fetchUserData,
 } from "@/lib/features/userSlice";
-import { userIncomeExpenseContext } from "@/components/IncomeExpenseContext";
+import { useIncomeExpenseContext } from "@/components/IncomeExpenseContext";
 import IncomeExpenseChart from "@/components/IncomeExpenseChart";
 import DeleteORUpdate from "@/components/DeleteORUpdate";
 
@@ -28,7 +28,7 @@ export default function Dashboard() {
   );
   const { entireUserData } = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
-  const { totalExpense, totalIncome } = userIncomeExpenseContext();
+  const { totalExpense, totalIncome } = useIncomeExpenseContext();
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
   const [storeSelectedItem, setStoreSelectedItem] = useState<TransactionType | {}>({});
 
@@ -36,11 +36,11 @@ export default function Dashboard() {
     dispatch(fetchUserData());
   }, [dispatch]);
 
-  let extractYearsIncome: number[] = entireUserData.income.map((item) =>
+  const extractYearsIncome: number[] = entireUserData.income.map((item) =>
     new Date(item.date).getFullYear()
   );
 
-  let extractYearsExpense: number[] = entireUserData.expense.map((item) =>
+  const extractYearsExpense: number[] = entireUserData.expense.map((item) =>
     new Date(item.date).getFullYear()
   );
 

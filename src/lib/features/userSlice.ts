@@ -45,7 +45,7 @@ const addExpenseTransactions = createAsyncThunk("user/addExpenseTransactions" , 
       }
 })
 
-const deleteTransaction = createAsyncThunk("user/deleteTransaction" , async (storeSelectedItem : TransactionType | {})=>{
+const deleteTransaction = createAsyncThunk("user/deleteTransaction" , async (storeSelectedItem : TransactionType | object)=>{
     try {
         const response = await fetch("/api/delete" , {
             method : "DELETE",
@@ -89,7 +89,7 @@ const updateTransaction = createAsyncThunk("user/updateTransaction" , async (upd
 
 
 
-const deleteIncome = createAsyncThunk("user/deleteIncome" , async (storeSelectedItem : IncomeType | {})=>{
+const deleteIncome = createAsyncThunk("user/deleteIncome" , async (storeSelectedItem : IncomeType | null)=>{
     try {
         const response = await fetch("/api/deleteIncome" , {
             method : "DELETE",
@@ -131,7 +131,7 @@ const updateIncome = createAsyncThunk("user/updateIncome" , async (updateValues 
     }
 })
 
-const deleteExpense = createAsyncThunk("user/deleteExpense" , async (storeSelectedItem : ExpenseType | {})=>{
+const deleteExpense = createAsyncThunk("user/deleteExpense" , async (storeSelectedItem : ExpenseType | null)=>{
     try {
         const response = await fetch("/api/deleteExpense" , {
             method : "DELETE",

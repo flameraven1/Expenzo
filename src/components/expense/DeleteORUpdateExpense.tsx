@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { IncomeType } from "@/lib/features/userSlice";
+import { ExpenseType } from "@/lib/features/userSlice";
 import DeleteExp from "./DeleteExp"
 import UpdateExp from "./UpdateExp";
 type TypeForQuestionTab = {
   updateDeleteTab : boolean,
-  storeSelectedItem : IncomeType | object,
+  storeSelectedItem : ExpenseType | null,
   setUpdateDeleteTab : (updateDeleteTab : boolean)=>void
 }
 

@@ -50,8 +50,7 @@ export async function POST (req : NextRequest) {
         )
 
         return NextResponse.json({message : "Added!" , updatingExpense, transaction : newTransaction})
-    } catch (error) {
-        console.log(error)
+    } catch {
         return NextResponse.json({error : "Could not add expense......."})
     }
 }

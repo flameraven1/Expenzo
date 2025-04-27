@@ -65,7 +65,7 @@ export async function PATCH (req : NextRequest) {
 
         return NextResponse.json({ error: "Invalid transaction type" }, { status: 400 });
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({error : "Could not update......."})
     }
 }

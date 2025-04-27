@@ -6,7 +6,7 @@ import { Bounce, toast } from "react-toastify";
 type UpdateTypes = {
   openUpdate: boolean;
   setOpenUpdate: (openUpdate: boolean) => void;
-  storeSelectedItem: IncomeType | object;
+  storeSelectedItem: IncomeType | null;
   setUpdateDeleteTab: (updateDeleteTab: boolean) => void;
 };
 

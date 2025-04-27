@@ -11,7 +11,7 @@ export async function DELETE(req : NextRequest) {
         await Transaction.findByIdAndDelete(selectedItem.transactionID)
         return NextResponse.json({message : "Deleted"})
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({error : "Error. Could not be deleted......."})
     }
 }

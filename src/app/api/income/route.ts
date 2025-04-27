@@ -49,7 +49,7 @@ export async function POST (req : NextRequest) {
             {new : true})
 
         return NextResponse.json({message : "Added!" , addingIncome : updatingIncome , transaction : newTransaction})
-    } catch (error) {
+    } catch {
         return NextResponse.json({error : "Could not add income......."})
     }
 }

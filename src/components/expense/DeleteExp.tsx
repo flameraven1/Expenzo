@@ -4,7 +4,7 @@ import { Bounce, toast } from "react-toastify";
 
 type DeleteTypes = {
     setOpenDelete : (openUpdate : boolean)=>void,
-    storeSelectedItem : ExpenseType | object,
+    storeSelectedItem : ExpenseType | null,
     setUpdateDeleteTab : (updateDeleteTab : boolean)=>void
 }
 

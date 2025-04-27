@@ -1,6 +1,6 @@
 "use client";
 
-import { userIncomeExpenseContext } from "@/components/IncomeExpenseContext";
+import { useIncomeExpenseContext } from "@/components/IncomeExpenseContext";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import { RootState } from "@/lib/store";
@@ -10,7 +10,7 @@ import DeleteORUpdateExpense from "@/components/expense/DeleteORUpdateExpense";
 
 export default function Expense() {
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
-  const [storeSelectedItem, setStoreSelectedItem] = useState<ExpenseType | object>({});
+  const [storeSelectedItem, setStoreSelectedItem] = useState<ExpenseType | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
 
   const dispatch = useAppDispatch();
@@ -20,10 +20,13 @@ export default function Expense() {
   };
 
   useEffect(() => {
-    fetchDataForExpense();
-  }, []);
+    const fetchData = async () => {
+      await dispatch(fetchUserData());
+    };
+    fetchData();
+  }, []);  
 
-  const { totalExpense } = userIncomeExpenseContext();
+  const { totalExpense } = useIncomeExpenseContext();
   const { entireUserData } = useAppSelector((state: RootState) => state.user);
 
   const extractYearsExpense = entireUserData.expense.map((item) => new Date(item.date).getFullYear());

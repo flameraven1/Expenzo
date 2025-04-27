@@ -9,8 +9,6 @@ type DeleteTypes = {
 }
 
 export default function Delete({setUpdateDeleteTab , setOpenDelete , storeSelectedItem} : DeleteTypes) {
-
-    console.log("what is the actual data recieved-------",storeSelectedItem)
     const dispatch = useAppDispatch();
 
     const handleDeleteDispatch = async () =>{

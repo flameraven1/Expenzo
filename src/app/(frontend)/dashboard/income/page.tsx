@@ -1,6 +1,6 @@
 "use client"
 
-import { userIncomeExpenseContext } from "@/components/IncomeExpenseContext";
+import { useIncomeExpenseContext } from "@/components/IncomeExpenseContext";
 import React, { useEffect, useState } from "react";
 import ChartIncome from "@/components/ChartIncome";
 import { useAppDispatch, useAppSelector } from "@/lib/hook";
@@ -10,10 +10,10 @@ import DeleteORUpdateIncome from "@/components/income/DeleteORUpdateIncome";
 
 export default function Income() {
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
-  const [storeSelectedItem, setStoreSelectedItem] = useState<IncomeType | object>({});
+  const [storeSelectedItem, setStoreSelectedItem] = useState<IncomeType | null>(null);
   const dispatch = useAppDispatch();
 
-  const { totalIncome } = userIncomeExpenseContext();
+  const { totalIncome } = useIncomeExpenseContext();
   const { entireUserData } = useAppSelector((state: RootState) => state.user);
 
   const extractYearsIncome = entireUserData.income

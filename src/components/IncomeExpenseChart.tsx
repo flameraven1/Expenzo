@@ -33,7 +33,7 @@ export default function IncomeExpenseChart({ entireUserData, filterForYear }: Da
     "December",
   ];
 
-  let getIncomeAmountArray = Array(12).fill(0);
+  const getIncomeAmountArray = Array(12).fill(0);
   const filteringIncomeYear = entireUserData.income.filter(
     (item) => new Date(item.date).getFullYear().toString() === filterForYear
   );
@@ -42,7 +42,7 @@ export default function IncomeExpenseChart({ entireUserData, filterForYear }: Da
     getIncomeAmountArray[monthIndex] += element.amount;
   });
 
-  let getExpenseAmountArray = Array(12).fill(0);
+  const getExpenseAmountArray = Array(12).fill(0);
   const filteringExpenseYear = entireUserData.expense.filter(
     (item) => new Date(item.date).getFullYear().toString() === filterForYear
   );

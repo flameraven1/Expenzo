@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addIncomeTransactions, fetchUserData } from "@/lib/features/userSlice";
 import { useAppDispatch } from "@/lib/hook";
 import { Bounce, toast } from "react-toastify";
-import { userIncomeExpenseContext } from "./IncomeExpenseContext";
+import { useIncomeExpenseContext } from "./IncomeExpenseContext";
 
 export default function IncomeForm() {
   const [inputs, setInputs] = useState({
@@ -12,7 +12,7 @@ export default function IncomeForm() {
   });
 
   const dispatch = useAppDispatch();
-  const { setTotalIncome, totalIncome } = userIncomeExpenseContext();
+  const { setTotalIncome, totalIncome } = useIncomeExpenseContext();
 
   const handleAddIncome = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ export default function IncomeForm() {
         theme: "colored",
         transition: Bounce,
       });
-    } catch (error) {
+    } catch{
       toast.error("Failed to add income.", {
         position: "top-right",
         autoClose: 3000,

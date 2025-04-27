@@ -28,7 +28,7 @@ export async function GET () {
 
         return NextResponse.json({income : getIncome , expense : getExpense , transaction : allTransactions})
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({error : "Could not be fetched......"});
     }
 }

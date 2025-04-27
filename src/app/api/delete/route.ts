@@ -21,7 +21,7 @@ export async function DELETE(req : NextRequest) {
             return NextResponse.json({message : "Deleted"})
         }
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({error : "Error. Could not be deleted......."})
     }
 }

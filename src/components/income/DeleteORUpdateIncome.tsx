@@ -4,7 +4,7 @@ import UpdateInc from "./UpdateInc";
 import DeleteInc from "./DeleteInc";
 type TypeForQuestionTab = {
   updateDeleteTab : boolean,
-  storeSelectedItem : IncomeType | object,
+  storeSelectedItem : IncomeType | null,
   setUpdateDeleteTab : (updateDeleteTab : boolean)=>void
 }
 

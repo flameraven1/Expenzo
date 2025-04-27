@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   
         await newUser.save();
         return true;
-      } catch (error) {
+      } catch {
         return false
       }
     },

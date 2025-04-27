@@ -26,10 +26,10 @@ export const IncomeExpenseProvider = ({children} : ProviderProps) => {
     if(!income && !expense){
       return
     }else{
-      let total = income.reduce((acc , item : IncomeType)=> Number(item.amount) + acc , 0) 
+      const total = income.reduce((acc , item : IncomeType)=> Number(item.amount) + acc , 0) 
       setTotalIncome(total)
       
-      let totalEx = expense.reduce((acc , item : ExpenseType)=> Number(item.amount) + acc , 0) 
+      const totalEx = expense.reduce((acc , item : ExpenseType)=> Number(item.amount) + acc , 0) 
       setTotalExpense(totalEx)
     }
   } , [income , expense])
@@ -41,7 +41,7 @@ export const IncomeExpenseProvider = ({children} : ProviderProps) => {
   )
 }
 
-export const userIncomeExpenseContext = () =>{
+export const useIncomeExpenseContext = () =>{
   const context = useContext(IncomeExpenseContext)
   if (!context) throw new Error("useUserData must be used within a UserDataProvider");
   return context; 

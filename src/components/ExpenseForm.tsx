@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { addExpenseTransactions, fetchUserData } from "@/lib/features/userSlice";
 import { useAppDispatch } from "@/lib/hook";
-import { userIncomeExpenseContext } from "./IncomeExpenseContext";
+import { useIncomeExpenseContext } from "./IncomeExpenseContext";
 import { Bounce, toast } from "react-toastify";
 
 let storeExpense = 0;
 
 export default function ExpenseForm() {
-  const { setTotalExpense } = userIncomeExpenseContext();
+  const { setTotalExpense } = useIncomeExpenseContext();
   const [inputs, setInputs] = useState({
     category: "",
     amount: 0,

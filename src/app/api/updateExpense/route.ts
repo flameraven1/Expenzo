@@ -35,7 +35,7 @@ export async function PATCH (req : NextRequest) {
         await findExpense.save()
         return NextResponse.json({message : "Updated!" , findExpense})
         
-    } catch (error) {
+    } catch {
         return NextResponse.json({error : "Could not update......."})
     }
 }
