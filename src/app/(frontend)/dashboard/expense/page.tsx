@@ -7,6 +7,7 @@ import { RootState } from "@/lib/store";
 import { ExpenseType, fetchUserData } from "@/lib/features/userSlice";
 import ChartExpense from "@/components/ChartExpense";
 import DeleteORUpdateExpense from "@/components/expense/DeleteORUpdateExpense";
+import { useCallback } from "react";
 
 export default function Expense() {
   const [updateDeleteTab, setUpdateDeleteTab] = useState(false);
@@ -15,14 +16,15 @@ export default function Expense() {
 
   const dispatch = useAppDispatch();
 
-  const fetchDataForExpense = async () => {
+  const fetchDataForExpense = useCallback(async () => {
     await dispatch(fetchUserData());
-  };
+  }, [dispatch]);
   
   useEffect(() => {
     fetchDataForExpense();
-  }, [dispatch]);
+  }, [fetchDataForExpense]);
 
+  
   const { totalExpense } = useIncomeExpenseContext();
   const { entireUserData } = useAppSelector((state: RootState) => state.user);
 

@@ -114,7 +114,7 @@ export default function Update({
             <div className="flex flex-col w-[90%] h-[30%] justify-center items-start">
               <label htmlFor="source">{isIncome(item.income) ? "Source" : "Category"}</label>
               <input
-                onChange={(e) => setSendValues({ ...sendValues, sourceCat: e.target.value })}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSendValues({ ...sendValues, sourceCat: e.target.value })}
                 className="w-full outline-1 outline-gray-300 selection:outline-blue-500 selection:outline-1 p-3"
                 type="text"
                 name="source"
@@ -125,7 +125,7 @@ export default function Update({
             <div className="flex flex-col w-[90%] h-[30%] justify-center items-start">
               <label htmlFor="amount">Amount</label>
               <input
-                onChange={(e) => setSendValues({ ...sendValues, amount: Number(e.target.value) })}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSendValues({ ...sendValues, amount: Number(e.target.value) })}
                 className="w-full outline-1 outline-gray-300 selection:outline-blue-500 selection:outline-1 p-3"
                 type="number"
                 name="amount"
@@ -136,7 +136,7 @@ export default function Update({
             <div className="flex flex-col w-[90%] h-[30%] justify-center items-start">
               <label htmlFor="date">Date</label>
               <input
-                onChange={(e) => setSendValues({ ...sendValues, date: new Date(e.target.value) })}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSendValues({ ...sendValues, date: new Date(e.target.value) })}
                 className="w-full outline-1 outline-gray-300 selection:outline-blue-500 selection:outline-1 p-3"
                 type="date"
                 name="date"
