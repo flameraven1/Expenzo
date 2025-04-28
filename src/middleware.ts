@@ -10,6 +10,7 @@ export default async function middleware(req: NextRequest) {
 
   const isPublicPaths = urlPath === "/login";
   const cookies = await req.cookies.get("authjs.session-token");
+  console.log("cookies--------------------------- : " , cookies)
 
   if (isPublicPaths && cookies) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
