@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export default async function middleware(req: NextRequest) {
   const getURL = new URL(req.url);
   const urlPath = getURL.pathname;
+  
 
   if (urlPath.startsWith("/api/auth/callback")) {
     return NextResponse.next();
