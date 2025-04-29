@@ -20,13 +20,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const checkUser = await User.findOne({ email: user.email });
         console.log("User found?", checkUser);
   
-        if (checkUser) return true;
-
-        else{
+        if (!checkUser){
           const newUser = new User({ name: user.name, email: user.email });
           await newUser.save();
           console.log("New User Saved");
-    
+          return true;
+        }else{
           return true;
         }
   
