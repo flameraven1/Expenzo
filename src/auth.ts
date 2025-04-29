@@ -11,26 +11,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   })],
 
   callbacks : {
-    async signIn({user}) {
+    async signIn({ user }) {
       try {
+        console.log("User Info from Google:", user);
         await ConnectDB();
+        console.log("Connected to DB");
   
-        const checkUser = await User.findOne({email : user.email});
+        const checkUser = await User.findOne({ email: user.email });
+        console.log("User found?", checkUser);
   
-        if(checkUser){
-          return true
-        }
-        
-        const newUser = new User({
-          name : user.name,
-          email : user.email
-        })
+        if (checkUser) return true;
   
+        const newUser = new User({ name: user.name, email: user.email });
         await newUser.save();
+        console.log("New User Saved");
+  
         return true;
       } catch (error) {
-        console.log(error)
-        return false
+        console.error("SIGN IN ERROR:", error);
+        return false;
       }
     },
 
