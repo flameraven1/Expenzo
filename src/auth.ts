@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import { ConnectDB } from "./database/ConnectDB"
 import { User } from "./models/user";
+import mongoose from "mongoose";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -16,6 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log("User Info from Google:", user);
         await ConnectDB();
         console.log("Connected to DB");
+        console.log("connection state------",mongoose.connection.readyState);
   
         const checkUser = await User.findOne({ email: user.email });
         console.log("User found?", checkUser);
