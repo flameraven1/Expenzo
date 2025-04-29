@@ -4,13 +4,8 @@ export default async function middleware(req: NextRequest) {
   const getURL = new URL(req.url);
   const urlPath = getURL.pathname;
 
-  if (urlPath.startsWith("/api/auth/callback")) {
-    return NextResponse.next();
-  }
-
   const isPublicPaths = urlPath === "/login";
   const cookies = await req.cookies.get("authjs.session-token");
-  console.log("cookies--------------------------- : " , cookies)
 
   if (isPublicPaths && cookies) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
