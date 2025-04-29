@@ -38,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session ({session}) {
       await ConnectDB();
       const findUser = await User.findOne({email : session.user.email})
-      session.user.id = findUser.id
+      session.user.id = findUser._id
       return session
     }
   },
