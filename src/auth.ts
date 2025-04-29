@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         await ConnectDB();
         console.log("Connected to DB");
   
-        const checkUser = await User.findOne({ email: user.email });
+        const checkUser = await User.findById(user.id);
         console.log("User found?", checkUser);
   
         if (checkUser) return true
