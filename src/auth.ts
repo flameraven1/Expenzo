@@ -39,8 +39,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async session ({session}) {
       await ConnectDB();
+      console.log("Connected to DB");
       const findUser = await User.findOne({email : session.user.email})
+      console.log("user Found!----" , findUser)
       session.user.id = findUser._id
+      console.log("session---------",session)
       return session
     }
   },
